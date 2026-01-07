@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Chatbot from './components/Chatbot';
 import Footer from './components/Footer';
@@ -17,10 +18,17 @@ import Services from './sections/Services';
 import Skills from './sections/Skills';
 import Timeline from './sections/Timeline';
 import { useAuthStore } from './store/authStore';
+import { useDataStore } from './store/dataStore';
 import ChangePassword from './components/dashboard/ChangePasswordManager';
 
 function App() {
-  const { user } = useAuthStore();
+  const { user, checkAuth } = useAuthStore();
+  const { fetchAllData } = useDataStore();
+
+  useEffect(() => {
+    checkAuth();
+    fetchAllData();
+  }, [checkAuth, fetchAllData]);
 
   return (
     <ThemeProvider>

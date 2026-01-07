@@ -1,5 +1,5 @@
 export interface Project {
-  id: number;
+  _id: string;
   title: string;
   description: string;
   image: string;
@@ -13,7 +13,7 @@ export interface Project {
 }
 
 export interface Certificate {
-  id: string;
+  _id: string;
   title: string;
   issuer: string;
   date: string;
@@ -24,7 +24,7 @@ export interface Certificate {
 }
 
 export interface Education {
-  id: string;
+  _id: string;
   period: string;
   degree: string;
   institution: string;
@@ -32,7 +32,7 @@ export interface Education {
 }
 
 export interface Experience {
-  id: string;
+  _id: string;
   period: string;
   role: string;
   company: string;
@@ -40,21 +40,21 @@ export interface Experience {
 }
 
 export interface Service {
-  id: string;
+  _id: string;
   title: string;
   icon: string;
   description: string;
 }
 
 export interface Skill {
-  id: string;
+  _id: string;
   title: string;
   icon: string;
   skills: string[];
 }
 
 export interface Publication {
-  id: string;
+  _id: string;
   title: string;
   authors: string[];
   journal: string;
@@ -67,7 +67,7 @@ export interface Publication {
 }
 
 export interface User {
-  id: string;
+  _id: string;
   email: string;
   name: string;
   role: string;
@@ -75,7 +75,7 @@ export interface User {
 }
 
 export interface Profile {
-  id: string;
+  _id: string;
   user_id: string;
   name: string;
   title: string;
@@ -89,7 +89,7 @@ export interface Profile {
 }
 
 export interface HeroSection {
-  id: string;
+  _id: string;
   name: string;
   title: string;
   subtitle: string;

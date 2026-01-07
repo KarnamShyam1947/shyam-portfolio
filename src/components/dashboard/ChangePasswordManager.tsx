@@ -10,14 +10,9 @@ const ChangePassword: React.FC = () => {
   const [success, setSuccess] = useState('');
   const [localError, setLocalError] = useState('');
 
-  const { loading, error, clearError } = useAuthStore();
+  const { loading, error, clearError, changePassword } = useAuthStore();
   const { colorScheme } = useTheme();
   const colors = getColorScheme(colorScheme);
-  const changePassword = async (currentPassword: string, newPassword: string) => {
-    console.log(currentPassword, " ", newPassword);
-    
-    return {success: true};
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

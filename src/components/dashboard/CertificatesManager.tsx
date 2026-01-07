@@ -7,6 +7,7 @@ import { getColorScheme } from '../../context/ThemeContext';
 import { useFormik, FormikProvider, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { getIn } from 'formik';
+import { uploadFile } from '../../services/apiService';
 
 
 const certificateSchema = Yup.object({
@@ -236,22 +237,11 @@ const CertificatesManager: React.FC = () => {
 
                     setIsUploadingMainImage(true);
 
-                    const formData = new FormData();
-                    formData.append('file', file);
-
                     try {
-                      const response = await fetch('https://httpbin.org/post', {
-                        method: 'POST',
-                        body: formData,
-                      });
-                      if (!response.ok) throw new Error('Upload failed');
-
-                      const data = await response.json();
-                      // Set the image URL in Formik's state
-                      formik.setFieldValue('image', "https://images.unsplash.com/photo-1599009434802-ca1dd09895e7");
+                      const imageUrl = await uploadFile(file);
+                      formik.setFieldValue('image', imageUrl);
                     } catch (error) {
                       console.error('Upload error:', error);
-                      // Optional: Show some error UI here
                     } finally {
                       setIsUploadingMainImage(false);
                     }

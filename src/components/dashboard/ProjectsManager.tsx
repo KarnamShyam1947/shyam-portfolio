@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { useDataStore } from '../../store/dataStore';
 import { useTheme, getColorScheme } from '../../context/ThemeContext';
 import { Project } from '../../types';
+import { uploadFile } from '../../services/apiService';
 
 const validationSchema = Yup.object({
   title: Yup.string().required('Title is required'),
@@ -191,22 +192,11 @@ const ProjectsManager: React.FC = () => {
 
                       setIsUploadingMainImage(true);
 
-                      const formData = new FormData();
-                      formData.append('file', file);
-
                       try {
-                        const response = await fetch('https://httpbin.org/post', {
-                          method: 'POST',
-                          body: formData,
-                        });
-                        if (!response.ok) throw new Error('Upload failed');
-
-                        const data = await response.json();
-                        // Set the image URL in Formik's state
-                        setFieldValue('image', "https://images.unsplash.com/photo-1599009434802-ca1dd09895e7");
+                        const imageUrl = await uploadFile(file);
+                        setFieldValue('image', imageUrl);
                       } catch (error) {
                         console.error('Upload error:', error);
-                        // Optional: Show some error UI here
                       } finally {
                         setIsUploadingMainImage(false);
                       }
@@ -241,28 +231,14 @@ const ProjectsManager: React.FC = () => {
                       const file = event.currentTarget.files?.[0];
                       if (!file) return;
 
-                      // Mark uploading start
                       setUploadingIndexes((prev) => new Set(prev).add(index));
 
-                      const formData = new FormData();
-                      formData.append('file', file);
-
                       try {
-                        const response = await fetch('https://httpbin.org/post', {
-                          method: 'POST',
-                          body: formData,
-                        });
-
-                        if (!response.ok) throw new Error('Upload failed');
-
-                        const data = await response.json();
-                        console.log(data);
-
-                        setFieldValue(`images.${index}.url`, "https://images.unsplash.com/photo-1599009434802-ca1dd09895e7");
+                        const imageUrl = await uploadFile(file);
+                        setFieldValue(`images.${index}.url`, imageUrl);
                       } catch (error) {
                         console.error('Upload error:', error);
                       } finally {
-                        // Mark uploading done
                         setUploadingIndexes((prev) => {
                           const newSet = new Set(prev);
                           newSet.delete(index);
