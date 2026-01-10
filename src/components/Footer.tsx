@@ -34,7 +34,8 @@ const Footer: React.FC = () => {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors"
+                className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}
+                // className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors"
                 aria-label={link.label}
               >
                 {link.icon}
@@ -44,26 +45,26 @@ const Footer: React.FC = () => {
           
           {/* Navigation */}
           <div className="flex flex-wrap justify-center gap-6 mb-8">
-            <a href="#home" className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <a href="#home" className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}>
               Home
             </a>
-            <a href="#about" className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <a href="#about" className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}>
               About
             </a>
-            <a href="#skills" className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <a href="#skills" className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}>
               Skills
             </a>
-            <a href="#projects" className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <a href="#projects" className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}>
               Projects
             </a>
-            <a href="#contact" className="text-slate-600 dark:text-slate-300 hover:text-teal-500 dark:hover:text-teal-400 transition-colors">
+            <a href="#contact" className={`text-slate-600 dark:text-slate-300 ${colors.accentHover} transition-colors`}>
               Contact
             </a>
           </div>
           
           {/* Copyright */}
           <div className="text-slate-500 dark:text-slate-400 text-sm">
-            © {currentYear} Shyam Karnam. All rights reserved.
+            © {currentYear} Karnam Shyam. All rights reserved.
           </div>
         </div>
       </div>

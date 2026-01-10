@@ -63,6 +63,78 @@ body {
 }
 
 .dark label {
-  color: #f9fafb; 
+  color: #f9fafb;
   font-weight: 800;
+}
+
+/* Toast Customization */
+.Toastify__toast {
+  font-family: 'Inter', system-ui, sans-serif;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .Toastify__toast {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+
+.Toastify__toast--success {
+  background: #10b981;
+}
+
+.dark .Toastify__toast--success {
+  background: #059669;
+}
+
+.Toastify__toast--error {
+  background: #ef4444;
+}
+
+.dark .Toastify__toast--error {
+  background: #dc2626;
+}
+
+.Toastify__toast--warning {
+  background: #f59e0b;
+}
+
+.dark .Toastify__toast--warning {
+  background: #d97706;
+}
+
+.Toastify__toast--info {
+  background: #3b82f6;
+}
+
+.dark .Toastify__toast--info {
+  background: #2563eb;
+}
+
+.Toastify__progress-bar {
+  height: 4px;
+}
+
+.Toastify__progress-bar--success {
+  background: #dcfce7;
+}
+
+.Toastify__progress-bar--error {
+  background: #fecaca;
+}
+
+.Toastify__progress-bar--warning {
+  background: #fef3c7;
+}
+
+.Toastify__progress-bar--info {
+  background: #dbeafe;
+}
+
+.Toastify__close-button {
+  opacity: 0.7;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
 }
