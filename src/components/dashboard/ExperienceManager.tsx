@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, GraduationCap, Briefcase } from 'lucide-react';
 import { useDataStore } from '../../store/dataStore';
 import { Experience } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
@@ -33,7 +33,7 @@ const ExperienceManager: React.FC = () => {
 
   const handleEdit = (item: Experience) => {
     setIsAdding(false);
-    setEditingId(item.id);
+    setEditingId(item._id);
   };
 
   const handleCancel = () => {
@@ -64,7 +64,7 @@ const ExperienceManager: React.FC = () => {
           enableReinitialize
           initialValues={
             editingId
-              ? experience.find((exp) => exp.id === editingId) || initialValues
+              ? experience.find((exp) => exp._id === editingId) || initialValues
               : initialValues
           }
           validationSchema={ExperienceSchema}
@@ -187,7 +187,7 @@ const ExperienceManager: React.FC = () => {
                           onClick={() => push('')}
                           disabled={
                             values.points.some((p) => p.trim() === '') ||
-                            (errors.points && errors.points.some((e) => e !== undefined))
+                            (errors.points && errors.points.some((e: any) => e !== undefined))
                           }
                           className={`mt-2 px-3 py-2 text-white rounded-md ${colors.button} disabled:opacity-50`}
                         >
@@ -225,7 +225,7 @@ const ExperienceManager: React.FC = () => {
       <div className="grid gap-4">
         {experience.map((item) => (
           <div
-            key={item.id}
+            key={item._id}
             className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow"
           >
             <div className="flex justify-between items-start mb-4">
@@ -249,7 +249,7 @@ const ExperienceManager: React.FC = () => {
                   <Edit size={18} />
                 </button>
                 <button
-                  onClick={() =>  deleteExperience(item.id)}
+                  onClick={() =>  deleteExperience(item._id)}
                   className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                   title="Delete"
                 >
@@ -265,6 +265,13 @@ const ExperienceManager: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {experience.length === 0 && (
+          <div className="text-center py-12">
+            <Briefcase className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">No Experiance details available yet.</p>
+          </div>
+        )}
     </div>
   );
 };

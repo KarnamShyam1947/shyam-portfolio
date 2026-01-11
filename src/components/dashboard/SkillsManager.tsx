@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik, FormikProvider, FieldArray, getIn } from 'formik';
 import * as Yup from 'yup';
-import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, Code } from 'lucide-react';
 import { useDataStore } from '../../store/dataStore';
 import { Skill } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
@@ -54,7 +54,7 @@ const SkillsManager: React.FC = () => {
       icon: item.icon,
       skills: item.skills,
     });
-    setEditingId(item.id);
+    setEditingId(item._id);
     setIsAdding(false);
   };
 
@@ -205,7 +205,7 @@ const SkillsManager: React.FC = () => {
 
       <div className="grid gap-4">
         {skills.map((item) => (
-          <div key={item.id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
+          <div key={item._id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <div className="flex justify-between items-start mb-4">
               <div>
                 <h3 className="text-lg font-semibold text-slate-800 dark:text-white">{item.title}</h3>
@@ -220,7 +220,7 @@ const SkillsManager: React.FC = () => {
                   <Edit size={18} />
                 </button>
                 <button
-                  onClick={() => deleteSkill(item.id)}
+                  onClick={() => deleteSkill(item._id)}
                   className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                   title="Delete"
                 >
@@ -237,6 +237,13 @@ const SkillsManager: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {skills.length === 0 && (
+          <div className="text-center py-12">
+            <Code className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">No Skill Details available yet.</p>
+          </div>
+        )}
     </div>
   );
 };

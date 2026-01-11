@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Save, X, Loader } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, Loader, Award } from 'lucide-react';
 import { useDataStore } from '../../store/dataStore';
 import { Certificate } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
@@ -59,7 +59,7 @@ const CertificatesManager: React.FC = () => {
   // Load certificate data into form when editingId changes
   useEffect(() => {
     if (editingId) {
-      const cert = certificates.find((c) => c.id === editingId);
+      const cert = certificates.find((c) => c._id === editingId);
       if (cert) {
         formik.setValues({
           title: cert.title,
@@ -78,7 +78,7 @@ const CertificatesManager: React.FC = () => {
   }, [editingId, certificates]);
 
   const handleEdit = (item: Certificate) => {
-    setEditingId(item.id);
+    setEditingId(item._id);
     setIsAdding(false);
   };
 
@@ -351,7 +351,7 @@ const CertificatesManager: React.FC = () => {
 
       <div className="grid gap-4">
         {certificates.map((item) => (
-          <div key={item.id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
+          <div key={item._id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <div className="flex justify-between items-start mb-4">
               <div className="flex gap-4">
                 <img
@@ -376,7 +376,7 @@ const CertificatesManager: React.FC = () => {
                   <Edit size={18} />
                 </button>
                 <button
-                  onClick={() => deleteCertificate(item.id)}
+                  onClick={() => deleteCertificate(item._id)}
                   className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                   title="Delete"
                 >
@@ -397,6 +397,13 @@ const CertificatesManager: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {certificates.length === 0 && (
+          <div className="text-center py-12">
+            <Award className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">No Certificates available yet.</p>
+          </div>
+        )}
     </div>
   );
 };

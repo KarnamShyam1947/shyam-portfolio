@@ -51,7 +51,7 @@ const Publications: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {publications.map((publication, index) => (
             <div
-              key={publication.id}
+              key={publication._id}
               className="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 animate-fadeIn"
               style={{ animationDelay: `${index * 150}ms` }}
             >

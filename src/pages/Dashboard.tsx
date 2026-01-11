@@ -10,6 +10,7 @@ import {
   LogOut,
   Menu,
   Monitor,
+  ShieldHalf,
   User,
   X
 } from 'lucide-react';
@@ -50,7 +51,7 @@ const Dashboard: React.FC = () => {
     { id: 'certificates', icon: <Award />, label: 'Certificates' },
     { id: 'projects', icon: <FolderOpen />, label: 'Projects' },
     { id: 'publications', icon: <BookOpen />, label: 'Publications' },
-    { id: 'changePassword', icon: <BookOpen />, label: 'Change Password' },
+    { id: 'changePassword', icon: <ShieldHalf />, label: 'Change Password' },
   ];
 
   const renderContent = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, BookOpen } from 'lucide-react';
 import { useDataStore } from '../../store/dataStore';
 import { Publication } from '../../types';
 import { useTheme } from '../../context/ThemeContext';
@@ -43,7 +43,7 @@ const PublicationsManager: React.FC = () => {
   };
 
   const startEdit = (item: Publication) => {
-    setEditingId(item.id);
+    setEditingId(item._id);
     setShowForm(true);
   };
 
@@ -77,7 +77,7 @@ const PublicationsManager: React.FC = () => {
           initialValues={
             editingId
               ? (() => {
-                const pub = publications.find((p) => p.id === editingId)!;
+                const pub = publications.find((p) => p._id === editingId)!;
                 return {
                   title: pub.title,
                   authors: pub.authors.length > 0 ? pub.authors : [''],
@@ -270,12 +270,12 @@ const PublicationsManager: React.FC = () => {
       {/* Publications List */}
       <div className="mt-6">
         {publications.length === 0 ? (
-          <p className="text-slate-600 dark:text-slate-400">No publications added yet.</p>
+          <p className="text-slate-600 dark:text-slate-400"></p>
         ) : (
           <ul className="space-y-4">
             {publications.map((pub) => (
               <li
-                key={pub.id}
+                key={pub._id}
                 className="p-4 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 flex justify-between items-start"
               >
                 <div>
@@ -308,7 +308,7 @@ const PublicationsManager: React.FC = () => {
                     <Edit size={18} />
                   </button>
                   <button
-                    onClick={() => deletePublication(pub.id)}
+                    onClick={() => deletePublication(pub._id)}
                     className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                     title="Delete"
                     aria-label={`Delete ${pub.title}`}
@@ -321,6 +321,13 @@ const PublicationsManager: React.FC = () => {
           </ul>
         )}
       </div>
+
+      {publications.length === 0 && (
+          <div className="text-center py-12">
+            <BookOpen className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">No publications available yet.</p>
+          </div>
+        )}
     </div>
   );
 };

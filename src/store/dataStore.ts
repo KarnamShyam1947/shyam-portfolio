@@ -126,6 +126,8 @@ export const useDataStore = create<DataState>((set, get) => ({
 
   addEducation: async (education) => {
     try {
+      console.log("data: ", education);
+      
       const response = await api.create('education', education);
       const newEducation = response.data || response;
       set((state) => ({ education: [...state.education, newEducation] }));
@@ -137,6 +139,8 @@ export const useDataStore = create<DataState>((set, get) => ({
 
   updateEducation: async (id, education) => {
     try {
+      console.log("data: ", education);
+      
       const updated = await api.update('education', id, education);
       set((state) => ({
         education: state.education.map((item) =>
@@ -416,8 +420,10 @@ export const useDataStore = create<DataState>((set, get) => ({
     try {
       set((state) => ({ loading: { ...state.loading, heroSection: true } }));
       const data = await api.read('home-section');
+      console.log("hero data: ", data);
+      
       if (data) {
-        set({ heroSection: data.data[0] });
+        set({ heroSection: data });
       }
     } catch (error) {
       console.error('Failed to fetch hero section:', error);
@@ -429,7 +435,7 @@ export const useDataStore = create<DataState>((set, get) => ({
   updateHeroSection: async (heroSection) => {
     try {
       const current = get().heroSection;
-      const updated = await api.update('home-section', current._id, heroSection);
+      const updated = await api.update('home-section', null, heroSection);
       set({ heroSection: { ...current, ...updated } });
     } catch (error) {
       console.error('Failed to update hero section:', error);

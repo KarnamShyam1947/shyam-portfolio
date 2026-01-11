@@ -11,8 +11,6 @@ const HeroManager: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: heroSection.name,
-    title: heroSection.title,
-    subtitle: heroSection.subtitle,
     description: heroSection.description,
     primaryButtonText: heroSection.primaryButtonText,
     primaryButtonLink: heroSection.primaryButtonLink,
@@ -35,8 +33,6 @@ const HeroManager: React.FC = () => {
   const handleCancel = () => {
     setFormData({
       name: heroSection.name,
-      title: heroSection.title,
-      subtitle: heroSection.subtitle,
       description: heroSection.description,
       primaryButtonText: heroSection.primaryButtonText,
       primaryButtonLink: heroSection.primaryButtonLink,
@@ -98,32 +94,7 @@ const HeroManager: React.FC = () => {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Title</label>
-                <input
-                  type="text"
-                  value={formData.title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                  className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
-                  placeholder="Your main title"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">Subtitle</label>
-              <input
-                type="text"
-                value={formData.subtitle}
-                onChange={(e) => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-                className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-900 dark:text-white"
-                placeholder="Your subtitle"
-                required
-              />
-            </div>
-
-            <div>
+              
               <label className="block text-sm font-medium mb-1">Description</label>
               <textarea
                 value={formData.description}
@@ -252,14 +223,6 @@ const HeroManager: React.FC = () => {
                 <div>
                   <span className="font-medium text-slate-600 dark:text-slate-400">Name:</span>
                   <p className="text-slate-800 dark:text-white">{heroSection.name}</p>
-                </div>
-                <div>
-                  <span className="font-medium text-slate-600 dark:text-slate-400">Title:</span>
-                  <p className="text-slate-800 dark:text-white">{heroSection.title}</p>
-                </div>
-                <div>
-                  <span className="font-medium text-slate-600 dark:text-slate-400">Subtitle:</span>
-                  <p className="text-slate-800 dark:text-white">{heroSection.subtitle}</p>
                 </div>
                 <div>
                   <span className="font-medium text-slate-600 dark:text-slate-400">Primary Button:</span>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, GraduationCap } from 'lucide-react';
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from 'formik';
 import * as Yup from 'yup';
 import { useDataStore } from '../../store/dataStore'; // Ensure this handles education data
@@ -14,7 +14,7 @@ const validationSchema = Yup.object({
 });
 
 const initialValues: Education = {
-  id: '',
+  _id: '',
   period: '',
   degree: '',
   institution: '',
@@ -60,7 +60,7 @@ const EducationManager: React.FC = () => {
             enableReinitialize
             initialValues={
               editingId
-                ? education.find((e) => e.id === editingId) || initialValues
+                ? education.find((e) => e._id === editingId) || initialValues
                 : initialValues
             }
             validationSchema={validationSchema}
@@ -68,11 +68,10 @@ const EducationManager: React.FC = () => {
               const data = {
                 ...values,
                 points: values.points.filter((p) => p.trim() !== ''),
-                id: editingId || crypto.randomUUID()
               };
 
               if (editingId) {
-                updateEducation(data.id, data);
+                updateEducation(data._id, data);
                 setEditingId(null);
               } else {
                 addEducation(data);
@@ -89,8 +88,8 @@ const EducationManager: React.FC = () => {
                   <Field
                     name="period"
                     className={`w-full px-3 py-2 border rounded-lg ${getIn(touched, 'period') && getIn(errors, 'period')
-                        ? 'border-red-600'
-                        : 'border-slate-300 dark:border-slate-600'
+                      ? 'border-red-600'
+                      : 'border-slate-300 dark:border-slate-600'
                       } bg-white dark:bg-slate-700 text-slate-900 dark:text-white`}
                   />
                   <ErrorMessage name="period" component="div" className="text-red-600 text-sm mt-1" />
@@ -102,8 +101,8 @@ const EducationManager: React.FC = () => {
                   <Field
                     name="degree"
                     className={`w-full px-3 py-2 border rounded-lg ${getIn(touched, 'degree') && getIn(errors, 'degree')
-                        ? 'border-red-600'
-                        : 'border-slate-300 dark:border-slate-600'
+                      ? 'border-red-600'
+                      : 'border-slate-300 dark:border-slate-600'
                       } bg-white dark:bg-slate-700 text-slate-900 dark:text-white`}
                   />
                   <ErrorMessage name="degree" component="div" className="text-red-600 text-sm mt-1" />
@@ -115,8 +114,8 @@ const EducationManager: React.FC = () => {
                   <Field
                     name="institution"
                     className={`w-full px-3 py-2 border rounded-lg ${getIn(touched, 'institution') && getIn(errors, 'institution')
-                        ? 'border-red-600'
-                        : 'border-slate-300 dark:border-slate-600'
+                      ? 'border-red-600'
+                      : 'border-slate-300 dark:border-slate-600'
                       } bg-white dark:bg-slate-700 text-slate-900 dark:text-white`}
                   />
                   <ErrorMessage name="institution" component="div" className="text-red-600 text-sm mt-1" />
@@ -192,7 +191,7 @@ const EducationManager: React.FC = () => {
       {/* Education List */}
       <div className="grid gap-4">
         {education.map((edu) => (
-          <div key={edu.id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
+          <div key={edu._id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="text-lg font-semibold text-slate-800 dark:text-white">{edu.degree}</h3>
@@ -203,15 +202,15 @@ const EducationManager: React.FC = () => {
                 <button
                   onClick={() => {
                     setIsAdding(false);
-                    setEditingId(edu.id);
+                    setEditingId(edu._id);
                   }}
-                  className="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/20 rounded"
+                  className={`p-2 rounded-md text-white ${colors.button}`}
                 >
                   <Edit className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={() => deleteEducation(edu.id)}
-                  className="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/20 rounded"
+                  onClick={() => deleteEducation(edu._id)}
+                  className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -225,6 +224,13 @@ const EducationManager: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {education.length === 0 && (
+        <div className="text-center py-12">
+          <GraduationCap className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+          <p className="text-slate-500 dark:text-slate-400">No Eduction Details available yet.</p>
+        </div>
+      )}
     </div>
   );
 };

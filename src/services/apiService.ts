@@ -46,6 +46,8 @@ const getServiceDisplayName = (serviceName: string): string => {
 
 export const create = async (serviceName: string, data: any) => {
   try {
+    delete data._id;
+    
     const response = await fetch(`${BASE_URL}/${serviceName}`, {
       method: 'POST',
       headers: getHeaders(),
@@ -78,9 +80,10 @@ export const read = async (serviceName: string, id = '') => {
   }
 };
 
-export const update = async (serviceName: string, id: any, data: any) => {
+export const update = async (serviceName: string, id: any = null, data: any) => {
   try {
-    const response = await fetch(`${BASE_URL}/${serviceName}/${id}`, {
+    const url = id ? `${BASE_URL}/${serviceName}/${id}` : `${BASE_URL}/${serviceName}`;
+    const response = await fetch(url, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(data),
@@ -230,10 +233,10 @@ export const auth = {
 
   changePassword: async (currentPassword: string, newPassword: string) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/change-password`, {
+      const response = await fetch(`${BASE_URL}/user/change-password`, {
         method: 'POST',
         headers: getHeaders(),
-        body: JSON.stringify({ currentPassword, newPassword }),
+        body: JSON.stringify({ currentPassword, newPassword, reEnterPassword: newPassword }),
       });
       const result = await handleResponse(response);
 

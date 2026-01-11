@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, Save, X, ExternalLink, Github, Loader } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, ExternalLink, Github, Loader, FolderOpen } from 'lucide-react';
 import { Formik, Form, Field, FieldArray, ErrorMessage, getIn } from 'formik';
 import * as Yup from 'yup';
 import { useDataStore } from '../../store/dataStore';
@@ -34,7 +34,7 @@ const cs = {
 }
 
 const initialValues: Project = {
-  id: 0,
+  _id: '0',
   title: '',
   description: '',
   overview: '',
@@ -53,7 +53,7 @@ const ProjectsManager: React.FC = () => {
   const colors = getColorScheme(colorScheme);
 
   const [isAdding, setIsAdding] = useState(false);
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [isUploadingMainImage, setIsUploadingMainImage] = useState(false);
   const [uploadingIndexes, setUploadingIndexes] = useState<Set<number>>(new Set());
 
@@ -88,7 +88,7 @@ const ProjectsManager: React.FC = () => {
             enableReinitialize
             initialValues={
               editingId
-                ? projects.find((p) => p.id === editingId) || initialValues
+                ? projects.find((p) => p._id === editingId) || initialValues
                 : initialValues
             }
             validationSchema={validationSchema}
@@ -380,7 +380,7 @@ const ProjectsManager: React.FC = () => {
       {/* Projects List */}
       <div className="grid gap-4">
         {projects.map((proj) => (
-          <div key={proj.id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
+          <div key={proj._id} className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <div className="flex justify-between items-start mb-2">
               <div>
                 <h3 className="text-lg font-semibold text-slate-800 dark:text-white">{proj.title}</h3>
@@ -392,7 +392,7 @@ const ProjectsManager: React.FC = () => {
                 <button
                   onClick={() => {
                     setIsAdding(false);
-                    setEditingId(proj.id);
+                    setEditingId(proj._id);
                   }}
                   className={`p-2 rounded-md text-white ${colors.button}`}
                   title="Edit"
@@ -400,7 +400,7 @@ const ProjectsManager: React.FC = () => {
                   <Edit size={18} />
                 </button>
                 <button
-                  onClick={() => deleteProject(proj.id)}
+                  onClick={() => deleteProject(proj._id)}
                   className="p-2 rounded-md bg-red-600 hover:bg-red-700 text-white"
                   title="Delete"
                 >
@@ -425,6 +425,13 @@ const ProjectsManager: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {projects.length === 0 && (
+          <div className="text-center py-12">
+            <FolderOpen className="w-16 h-16 text-slate-400 dark:text-slate-600 mx-auto mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">No Projects available yet.</p>
+          </div>
+        )}
     </div>
   );
 };
