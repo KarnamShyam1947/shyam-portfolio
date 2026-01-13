@@ -115,7 +115,7 @@ export const useDataStore = create<DataState>((set, get) => ({
   fetchEducation: async () => {
     try {
       set((state) => ({ loading: { ...state.loading, education: true } }));
-      const data = await api.read('education');
+      const data: any = await api.read('education');
       set({ education: data.data });
     } catch (error) {
       console.error('Failed to fetch education:', error);
@@ -125,9 +125,7 @@ export const useDataStore = create<DataState>((set, get) => ({
   },
 
   addEducation: async (education) => {
-    try {
-      console.log("data: ", education);
-      
+    try {      
       const response = await api.create('education', education);
       const newEducation = response.data || response;
       set((state) => ({ education: [...state.education, newEducation] }));
@@ -139,8 +137,6 @@ export const useDataStore = create<DataState>((set, get) => ({
 
   updateEducation: async (id, education) => {
     try {
-      console.log("data: ", education);
-      
       const updated = await api.update('education', id, education);
       set((state) => ({
         education: state.education.map((item) =>
@@ -420,7 +416,6 @@ export const useDataStore = create<DataState>((set, get) => ({
     try {
       set((state) => ({ loading: { ...state.loading, heroSection: true } }));
       const data = await api.read('home-section');
-      console.log("hero data: ", data);
       
       if (data) {
         set({ heroSection: data });
